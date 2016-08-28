@@ -1,0 +1,143 @@
+*{
+  margin:0;
+  padding:0;
+  list-style: none;
+}
+body{
+  width: 100%;
+  height: 100%;
+  background: url(../bg3.jpg) no-repeat center center;
+  background-size: 100%;
+  .left{
+    width:120px;
+    height:400px;
+    background: red;
+    position: absolute;
+    top:120px;
+    left:220px;
+  }
+}
+@mixin center{
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+}
+$width:400px;
+$height:400px;
+#canvas{
+  width:$width;
+  height:$width;
+  @include center;
+  background: url(../clock.png)no-repeat center center;
+  background-size: cover;
+  ul{
+    @include center;
+    width:$width*0.99;
+    height:$width*0.99;
+    border-radius: 50%;
+    overflow: hidden;
+    li{
+      @include center;
+      width: $width/60;
+      height:$width/60;
+      border-radius: 50%;
+      background:#f9cf07 ;
+      opacity: 0;
+      //z-index: 9999;
+      animation:scale 0.8 linear forwards;
+      &:nth-child(5n){
+        width: $width/60;
+        height: $width/15;
+        background: #02166d;
+        border-radius: $width/50;
+      }
+
+    }
+    @for $i from 1 through 60{
+      li:nth-child(#{$i}){
+        transform:rotateZ($i*6deg) translateY($width/2-$width/15);
+        animation-delay:$i * 0.02s;
+
+      }
+    }
+
+  }
+}
+@keyframes scale{
+  0%{opacity: 0}
+  100%{ opacity: 1  }
+}
+#canvas .second{
+  @include center;
+  width: $width * 0.9;
+  height: $width * 0.9;
+  transform-origin:center center;
+  animation:miaozhen  60s normal infinite steps(60, end) 2s;
+  .point{
+    border-radius:4px;
+    @include center;
+    height: $width*0.50;
+    width:4px;
+    background:#ff0033;
+    top:-$width*0.30;
+    /*animation: doudong 1s ease infinite 2s;*/
+  }
+  .center{
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: 1px solid #fff;
+    background:#06369a;
+    @include center;
+  }
+}
+@keyframes miaozhen{
+  0%{transform:rotate(0deg)}
+  100%{transform:rotate(360deg)}
+}
+@keyframes doudong{ 0%{transform: rotate(0deg) translateX(1px)} 21%{transform:rotate(4deg) translateX(1px)} 26%{transform: rotate(8deg) translateX(1px)} 33%{transform: rotate(4deg) translateX(1px)} 37%{transform: rotate(6deg) translateX(1px)} 100%{transform: rotate(6deg) translateX(1px)}
+}
+#canvas .hour{
+  @include center;
+  width: $width * 0.9;
+  height: $width * 0.9;
+  transform-origin:center center;
+  transform: rotateZ(90deg);
+  animation:shizhen  21600s normal infinite steps(21600, end) 2s;
+  .point{
+    border-radius: 8px;
+    @include center;
+    height: $width*0.4;
+    width:8px;
+    background:rgba(0,0,0,0.7);
+    top:-100px;
+    z-index: 999;
+  }
+}
+@keyframes shizhen{
+  0%{transform:rotate(90deg)}
+  100%{transform:rotate(450deg)}
+}
+#canvas .minute{
+  @include center;
+  width: $width * 0.9;
+  height: $width * 0.9;
+  transform-origin:center center;
+  animation:fenzhen  3600s normal infinite steps(3600, end) 2s;
+  .point{
+    border-radius: 6px;
+    @include center;
+    height: $width*0.45;
+    width:6px;
+    background:rgba(0,0,0,0.7);
+    top:-100px;
+  }
+}
+@keyframes fenzhen{
+  0%{transform:rotate(0deg)}
+  100%{transform:rotate(360deg)}
+}
+
